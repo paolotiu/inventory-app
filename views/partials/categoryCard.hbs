@@ -1,0 +1,14 @@
+<a href={{url}}>
+    <div class="category-card">
+        <img src="https://www.sciencemag.org/sites/default/files/styles/article_main_image_-_1280w__no_aspect_/public/dogs_1280p_0.jpg?itok=6jQzdNB8"
+            alt="">
+        <p>{{name}}</p>
+        {{#if quantity}}
+        <div class="info">
+            <span>Price: ${{price}}</span>
+            <span>Qty: {{quantity}}</span>
+
+        </div>
+        {{/if}}
+    </div>
+</a>

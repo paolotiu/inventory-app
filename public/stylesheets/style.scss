@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+$gap: 20px;
+$primary-text: #000;
+
+body {
+    font-family: Montserrat, 'Times New Roman', Times, serif;
+}
+
+.grid-12 {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(12, 1fr);
+    gap: $gap;
+}
+
+.container {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.fluid-container {
+    justify-items: center;
+    align-items: center;
+    width: 100vw;
+}
+
+.navbar {
+    padding: 20px 20px 0 20px;
+    background-color: aliceblue;
+    border-bottom: 2px solid black;
+    .nav-links {
+        font-size: 2em;
+        font-weight: 600;
+
+        li:first-child {
+            grid-column: 2;
+        }
+        text-align: center;
+        li {
+            padding: 0.2em;
+            height: 100%;
+            border: 2px solid black;
+            border-bottom: none;
+        }
+    }
+}
+a {
+    color: $primary-text;
+    text-decoration: none;
+}
+
+a:visited {
+    color: $primary-text;
+}
+
+ul {
+    list-style: none;
+}
+
+.pd-top-3em {
+    padding-top: 3em;
+}
+
+.span-whole {
+    grid-column: 1/-1;
+}
+
+.inventory-stats {
+    white-space: nowrap;
+    p {
+        color: rgba(53, 53, 53, 0.596);
+        font-size: 1.3em;
+        grid-column: 2/ -1;
+        span {
+            color: $primary-text;
+        }
+    }
+}
+
+.categories-container,
+.items-container {
+    .grid-12 {
+        padding: 0 100px;
+        gap: 40px;
+    }
+    .category-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 250px;
+        min-width: 250px;
+        width: 100%;
+        padding: 2em 0;
+        border-radius: 24px;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.274);
+        img {
+            height: 100px;
+            width: 70%;
+            border-radius: 4px;
+        }
+        p {
+            font-weight: 300;
+            font-size: 2.2em;
+        }
+        .info {
+            width: 100%;
+            display: flex;
+            margin-top: 14px;
+            justify-content: space-around;
+            color: rgba(80, 80, 80, 0.527);
+        }
+    }
+}
+
+.category-info {
+    display: flex;
+    justify-content: space-between;
+    h1 {
+        font-weight: normal;
+    }
+}

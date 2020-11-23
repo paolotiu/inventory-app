@@ -1,0 +1,11 @@
+<section class="items-container container pd-top-3em">
+    <div class="grid-12">
+        <div class="category-info span-whole">
+            <h1>Category: {{category_name}}</p>
+        </div>
+        {{#each items}}
+        {{>categoryCard name=this.name quantity=this.quantity price=this.price}}
+        {{/each}}
+    </div>
+
+</section>

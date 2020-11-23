@@ -1,0 +1,8 @@
+<section class="categories-container container pd-top-3em">
+    <div class="grid-12">
+        {{#each categories}}
+        {{>categoryCard name=this.name url=this.url}}
+        {{/each}}
+    </div>
+
+</section>
