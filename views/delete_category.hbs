@@ -1,0 +1,15 @@
+<section class="container">
+    <div class="center delete-text">
+        {{#if noItems}}
+        <h1>You are about to delete <i class="underline">Category</i>: <span>{{category.name}}</span> </h1>
+        <a href={{concat category.url '/delete/confirm'}}><button>Continue</button></a>
+        {{/if}}
+
+
+        {{#if hasItems}}
+        <h1>Delete the remaining <span>{{count}}</span> item{{s}} in your category</h1>
+        <a href={{category.url}}><button>Go back</button></a>
+        {{/if}}
+
+    </div>
+</section>

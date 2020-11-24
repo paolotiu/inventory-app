@@ -1,0 +1,18 @@
+<section class="item-details">
+    <img src="/images/placeholder.jpg" alt="">
+    <div class="details">
+        <h1>{{item.name}}</h1>
+        <div class="pnq">
+            <span>
+                Price: {{item.price}}
+
+            </span>
+            <span>
+                QTY: {{item.quantity}}
+            </span>
+        </div>
+        <p class="desc">{{item.description}}</p>
+    </div>
+
+</section>
+<a href={{concat item.url '/delete'}} class="hori-center danger underline">Delete Item</a>

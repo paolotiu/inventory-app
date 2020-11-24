@@ -1,7 +1,7 @@
 <section class="categories-container container pd-top-3em">
-    <div class="grid-12">
+    <div class="flex">
         {{#each categories}}
-        {{>categoryCard name=this.name url=this.url}}
+        {{>categoryCard name=this.name url=this.url class='top-card-info'}}
         {{/each}}
     </div>
 

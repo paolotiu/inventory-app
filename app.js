@@ -22,6 +22,12 @@ db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 var app = express();
 const hbs = require('hbs');
 hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerHelper('concat', function (path, final) {
+    return path + final;
+});
+hbs.registerHelper('underline', function (text) {
+    return text;
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
