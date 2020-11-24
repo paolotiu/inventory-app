@@ -26,8 +26,8 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var categories = [];
 var items = [];
 
-function catgeoryCreate(name, items, cb) {
-    categorydetail = { name: name, items: items };
+function catgeoryCreate(name, items, img, cb) {
+    categorydetail = { name: name, items: items, img };
 
     var category = new Category(categorydetail);
 
@@ -42,8 +42,8 @@ function catgeoryCreate(name, items, cb) {
     });
 }
 
-function itemCreate(name, description, price, quantity, cb) {
-    var item = new Item({ name: name, description, price, quantity });
+function itemCreate(name, description, price, quantity, img, cb) {
+    var item = new Item({ name: name, description, price, quantity, img });
 
     item.save(function (err) {
         if (err) {
@@ -105,10 +105,24 @@ function createItems(cb) {
     async.parallel(
         [
             (callback) => {
-                itemCreate('Hotdog', 'Very Yummy', '2.00', '10', callback);
+                itemCreate(
+                    'Hotdog',
+                    'Very Yummy',
+                    '2.00',
+                    '10',
+                    'placeholder.jpg',
+                    callback
+                );
             },
             (callback) => {
-                itemCreate('Salad', 'Very Healthy', '3.25', '8', callback);
+                itemCreate(
+                    'Salad',
+                    'Very Healthy',
+                    '3.25',
+                    '8',
+                    'placeholder.jpg',
+                    callback
+                );
             },
         ],
         cb
@@ -118,7 +132,7 @@ function createItems(cb) {
 function createCategories(cb) {
     async.parallel([
         (callback) => {
-            catgeoryCreate('Food', [...items], cb);
+            catgeoryCreate('Food', [...items], 'placeholder.jpg', cb);
         },
     ]);
 }

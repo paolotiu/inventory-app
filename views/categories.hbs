@@ -1,7 +1,9 @@
 <section class="categories-container container pd-top-3em">
     <div class="flex">
         {{#each categories}}
-        {{>categoryCard name=this.name url=this.url class='top-card-info'}}
+
+        {{>categoryCard name=this.name url=this.url class='top-card-info' img=this.img }}
+
         {{/each}}
     </div>
 

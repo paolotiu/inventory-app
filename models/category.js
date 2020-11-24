@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const CategorySchema = new Schema({
     name: String,
     items: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
+    img: String,
 });
 
 // Virtual for url

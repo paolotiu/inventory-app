@@ -1,6 +1,8 @@
 const Category = require('../models/category');
 const Item = require('../models/item');
 const async = require('async');
+const multer = require('multer');
+const upload = multer({ dest: 'public/images' });
 // Count the numebr of categories
 exports.category_count = (req, res) => {
     Category.countDocuments({}, (err, count) => {
@@ -11,7 +13,6 @@ exports.category_count = (req, res) => {
 // List of all categories
 exports.category_list = (req, res) => {
     Category.find().exec((err, category_list) => {
-        console.log(category_list);
         res.render('categories', { categories: category_list });
     });
 };
@@ -74,11 +75,18 @@ exports.create_category_form = (req, res, next) => {
     res.render('category_form', { title: 'Create a Category' });
 };
 
-exports.create_category = (req, res, next) => {
-    const { name } = req.body;
-    const category = new Category({ name: name, items: [] });
-    category.save((err) => {
-        if (err) return next(err);
-        res.redirect('/');
-    });
-};
+exports.create_category = [
+    upload.single('photo'),
+    (req, res, next) => {
+        const { name } = req.body;
+        const category = new Category({
+            name: name,
+            items: [],
+            img: req.file.filename || 'placeholder.jpg',
+        });
+        category.save((err) => {
+            if (err) return next(err);
+            res.redirect('/categories');
+        });
+    },
+];

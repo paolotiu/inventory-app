@@ -25,6 +25,10 @@ hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerHelper('concat', function (path, final) {
     return path + final;
 });
+hbs.registerHelper('isPlaceholder', function (img) {
+    console.log('HEyyy');
+    return img ? 'placeholder.jpg' : img;
+});
 hbs.registerHelper('underline', function (text) {
     return text;
 });

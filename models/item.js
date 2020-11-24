@@ -6,6 +6,7 @@ const itemSchema = new Schema({
     description: String,
     price: Number,
     quantity: Number,
+    img: String,
 });
 
 itemSchema.virtual('url').get(function () {
