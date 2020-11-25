@@ -1,8 +1,9 @@
 const { nextTick } = require('async');
 const Item = require('../models/item');
 const Category = require('../models/category');
-const multer = require('multer');
-const upload = multer({ dest: 'public/images' });
+const upload = require('./multer');
+const { itemValidators, validationResult } = require('./validation');
+
 exports.item_count = (req, res) => {
     Item.countDocuments((err, count) => {
         res.render('index', { item_count: count });
@@ -26,15 +27,47 @@ exports.create_item_form = (req, res) => {
 };
 
 exports.create_item = [
-    upload.single('photo'),
+    (req, res, next) => {
+        upload(req, res, (err) => {
+            if (err) {
+                res.locals.fileErr = 'File too large!';
+            }
+            next();
+        });
+    },
+    ...itemValidators,
     (req, res, next) => {
         const { name, price, qty, desc, categoryId } = req.body;
+        const params = {
+            name,
+            price,
+            qty,
+            desc,
+            title: 'Add an Item',
+            isItem: true,
+            id: req.params.id,
+        };
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let { param, msg } = errors.array({ onlyFirstError: true })[0];
+            param = param + 'Err';
+            return res.render('category_form', {
+                fileErr: res.locals.fileErr,
+                [param]: msg,
+                ...params,
+            });
+        } else if (res.locals.fileErr) {
+            return res.render('category_form', {
+                fileErr: res.locals.fileErr,
+                ...params,
+            });
+        }
         const item = new Item({
             name: name,
             price: price,
             quantity: qty,
             description: desc,
-            img: req.file.filename || 'placeholder.jpg',
+            img: req.file ? req.file.filename : 'placeholder.jpg',
         });
 
         Category.findByIdAndUpdate(

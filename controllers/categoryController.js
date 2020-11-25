@@ -1,8 +1,10 @@
 const Category = require('../models/category');
 const Item = require('../models/item');
 const async = require('async');
-const multer = require('multer');
-const upload = multer({ dest: 'public/images' });
+const upload = require('./multer');
+
+const { categoryValidators, validationResult } = require('./validation');
+
 // Count the numebr of categories
 exports.category_count = (req, res) => {
     Category.countDocuments({}, (err, count) => {
@@ -76,13 +78,40 @@ exports.create_category_form = (req, res, next) => {
 };
 
 exports.create_category = [
-    upload.single('photo'),
+    (req, res, next) => {
+        upload(req, res, (err) => {
+            if (err) {
+                res.locals.fileErr = 'File too large!';
+            }
+            next();
+        });
+    },
+    ...categoryValidators,
     (req, res, next) => {
         const { name } = req.body;
+        const errors = validationResult(req);
+
+        //Check Errors
+        if (!errors.isEmpty()) {
+            let { param, msg } = errors.array({ onlyFirstError: true })[0];
+            param = param + 'Err';
+            return res.render('category_form', {
+                title: 'Create a Category',
+                name,
+                [param]: msg,
+            });
+        } else if (res.locals.fileErr) {
+            return res.render('category_form', {
+                title: 'Create a Category',
+                fileErr: res.locals.fileErr,
+                name,
+            });
+        }
+
         const category = new Category({
             name: name,
             items: [],
-            img: req.file.filename || 'placeholder.jpg',
+            img: req.file ? req.file.filename : 'placeholder.jpg',
         });
         category.save((err) => {
             if (err) return next(err);
