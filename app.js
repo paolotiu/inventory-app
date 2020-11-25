@@ -12,7 +12,7 @@ var usersRouter = require('./routes/users');
 
 const env = require('dotenv').config().parsed;
 const mongoose = require('mongoose');
-const mongoDB = env.DB_URL;
+const mongoDB = process.env.MONGODB_URI || env.DB_URL;
 mongoose.connect(mongoDB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

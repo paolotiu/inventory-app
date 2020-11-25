@@ -7,6 +7,9 @@
         "devstart": "nodemon ./bin/www",
         "serverstart": "SET DEBUG=inventory-app:* & npm run devstart"
     },
+    "engines": {
+        "node": "12.18.4"
+    },
     "dependencies": {
         "async": "^3.2.0",
         "compression": "^1.7.4",
