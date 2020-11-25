@@ -86,6 +86,13 @@ exports.create_item = [
 
 exports.delete_item = (req, res, next) => {
     const itemId = req.params.id;
+
+    Category.find({ items: req.params.id })
+        .update({
+            $pull: { items: req.params.id },
+        })
+        .exec();
+
     Item.findByIdAndRemove(itemId, (err, doc) => {
         console.log(itemId);
         if (err) return next(err);
